@@ -298,17 +298,21 @@ N = 4π / Ω_coverage = 4π / (2π(1-cos(α)))
 <p>关键优势分析：</p>
 <ul>
 <li><strong>频谱复用密度</strong>：复用距离D = 2×√(2rh) ≈ 2,100km，相比GEO的8,000km提升4倍频谱效率</li>
-<li><strong>链路预算优化</strong>：自由空间路径损耗FSPL = 20log₁₀(4πd/λ)，550km vs 36,000km节省35.3dB，允许用户终端功率从50W降至0.5W</li>
+<li><strong>链路预算优化</strong>：自由空间路径损耗FSPL = 20log₁₀(4πd/λ)，550km vs 36,000km节省35.3dB，允许用户终端功率从50W降至0.5W<ul>
+<li>修正：GEO 手持/便携终端的“手机侧功放功率”通常远低于 50 W；常见在 0.2–2 W。</li>
+</ul>
+</li>
 <li><strong>轨道衰减机制</strong>：大气密度ρ(550km) ≈ 2×10⁻¹²kg/m³，轨道寿命τ = (B×a)/(2ρ×C_D×v)，其中弹道系数B≈100kg/m²，确保5年运营+2年自然离轨</li>
 </ul>
-<p><strong>范艾伦辐射带规避的定量分析</strong>：</p>
+<p><strong>范艾伦辐射带规避的定量分析</strong>：
+Starlink（低轨 LEO 卫星）的辐射环境比 GEO（地球静止轨道卫星）好，主要是因为轨道高度差异决定了它们穿越的辐射带环境完全不同。</p>
 <p>辐射环境参数：</p>
 <ul>
 <li>质子通量@550km：&lt;10³ p/cm²/s (&gt;10MeV)</li>
 <li>质子通量@1000km：&gt;10⁷ p/cm²/s (&gt;10MeV)</li>
 <li>电子通量@550km：&lt;10⁶ e/cm²/s (&gt;1MeV)</li>
 </ul>
-<p>这4个数量级的差异意味着：</p>
+<p>质子能量这4个数量级的差异意味着：</p>
 <ul>
 <li>单粒子翻转率(SEU)降低1000倍</li>
 <li>总剂量累积减少100倍至~10krad/年</li>
@@ -330,9 +334,18 @@ N = 4π / Ω_coverage = 4π / (2π(1-cos(α)))
 </ul>
 <p>SpaceX的补偿方案：</p>
 <ol>
-<li><strong>开环预补偿</strong>：基于精确轨道预测(SGP4/SDP4模型，精度&lt;100m)</li>
-<li><strong>闭环跟踪</strong>：使用Costas环+决策反馈均衡器，锁定时间&lt;10ms</li>
-<li><strong>波形优化</strong>：采用SC-OFDM而非传统OFDM，子载波间隔15kHz，对频偏鲁棒性提升3倍</li>
+<li><strong>开环预补偿</strong>：基于精确轨道预测(SGP4/SDP4模型，精度&lt;100m)<ul>
+<li>SGP4 和 SDP4 是两种经典的轨道传播模型，用来从 TLE（Two-Line Element Sets，双行轨道根数）预测卫星位置和速度。它们是美国空军和 NORAD 在上世纪 80–90 年代发展出来的标准算法，至今仍是 Space-Track.org 数据的基础。</li>
+</ul>
+</li>
+<li><strong>闭环跟踪</strong>：使用Costas环+决策反馈均衡器，锁定时间&lt;10ms<ul>
+<li>Costas环是个特殊结构的锁相环（PLL），但它能在没有已知导频（pilot）的情况下，从调制信号本身恢复载波相位，并自动去掉调制信息对锁相的干扰。</li>
+</ul>
+</li>
+<li><strong>波形优化</strong>：采用SC-OFDM而非传统OFDM，子载波间隔15kHz，对频偏鲁棒性提升3倍<ul>
+<li>频偏来自LEO 卫星高速运动造成的多普勒效应。</li>
+</ul>
+</li>
 </ol>
 <p>这套系统后来直接应用于Direct-to-Cell，处理更严苛的移动终端场景（额外±10km/h用户运动）。</p>
 <h3 id="13">1.3 监管博弈与频谱争夺</h3>
