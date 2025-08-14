@@ -57,7 +57,7 @@ NASA 时任局长 Michael Griffin 推动的变革理念：
 
 **竞标过程与 SpaceX 的优势**
 
-2006年8月18日，经过激烈竞争，SpaceX 从 20 家竞标公司中脱颖而出，获得 $396M 的 COTS 合同。同时获选的还有 Rocketplane Kistler（$207M，后被 Orbital Sciences 替代）。
+2006年8月18日，经过激烈竞争，SpaceX 从 20 家竞标公司中脱颖而出，获得 \$396M 的 COTS 合同。同时获选的还有 Rocketplane Kistler（\$207M，后被 Orbital Sciences 替代）。
 
 SpaceX 竞标方案的关键优势：
 
